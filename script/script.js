@@ -47,9 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // trabajamos de acuerdo los datos ingresados
 
-
-
-
   //1)En caso de haber seleccionado Tecnico de primera categoria--
 
   const calcularBtn = document.getElementById('calcular-btn');
@@ -87,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
       sueldoTotal = sueldoBasico + sabadoUsuario * 10000; // el valor de sabados por la categoriaseleccionada
      
     } 
-
     alert(`Gracias ${nombreUsuario} por usar la calculadora online de sueldo. El valor tus horas extras del mes sin el salario basico es de ${sueldoTotal}`);
     console.log(sueldoTotal);
 
