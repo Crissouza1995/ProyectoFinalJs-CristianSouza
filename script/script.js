@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(categoriaSeleccionada);
   });
 
-  console.log(categoriaSeleccionada);
 
   const validarBtnUser = document.getElementById('validar-nombre');
   validarBtnUser.addEventListener('click', () => {
@@ -50,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //1)En caso de haber seleccionado Tecnico de primera categoria--
 
   const calcularBtn = document.getElementById('calcular-btn');
-  calcularBtn.addEventListener('click',() => {
+  calcularBtn.addEventListener('click', () => {
 
     if (horasExtras >= 40) {
 
@@ -58,32 +57,43 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    if (sabadoUsuario >= 6) {
 
-    if (categoriaSeleccionada == "1") {
+      alert("Es imposible que un mes tenga mas de 5 sabados");
+      return;
+    }
 
-      sueldoBasico = horasExtras * tecnico1;
-      sueldoBasico = sueldoBasico * 2; // se multiplica por 2 ya que las horas extras se pagan un 50% mas que las horas normales.
-      sueldoTotal = sueldoBasico + sabadoUsuario * 4000; // el valor de sabados por la categoriaseleccionada
-     
-    }else if (categoriaSeleccionada == "2") {
+    categoriaSeleccionada = parseInt(categoriaSeleccionada);
 
-      sueldoBasico = horasExtras * tecnico2;
-      sueldoBasico = sueldoBasico * 2; // se multiplica por 2 ya que las horas extras se pagan un 50% mas que las horas normales.
-      sueldoTotal = sueldoBasico + sabadoUsuario * 6000; // el valor de sabados por la categoriaseleccionada
-     
-    }else if (categoriaSeleccionada == "3") {
+    switch (categoriaSeleccionada) {
 
-      sueldoBasico = horasExtras * supervisorProduccion;
-      sueldoBasico = sueldoBasico * 2; // se multiplica por 2 ya que las horas extras se pagan un 50% mas que las horas normales.
-      sueldoTotal = sueldoBasico + sabadoUsuario * 8000; // el valor de sabados por la categoriaseleccionada
-     
-    } else if (categoriaSeleccionada == "4") {
+      case 1:
+        sueldoBasico = horasExtras * tecnico1;
+        sueldoBasico = sueldoBasico * 2; // se multiplica por 2 ya que las horas extras se pagan un 50% mas que las horas normales.
+        sueldoTotal = sueldoBasico + sabadoUsuario * 4000; // el valor de sabados por la categoriaseleccionada
+        break;
 
-      sueldoBasico = horasExtras * jefeDeSector;
-      sueldoBasico = sueldoBasico * 2; // se multiplica por 2 ya que las horas extras se pagan un 50% mas que las horas normales.
-      sueldoTotal = sueldoBasico + sabadoUsuario * 10000; // el valor de sabados por la categoriaseleccionada
-     
-    } 
+      case 2:
+
+        sueldoBasico = horasExtras * tecnico2;
+        sueldoBasico = sueldoBasico * 2; // se multiplica por 2 ya que las horas extras se pagan un 50% mas que las horas normales.
+        sueldoTotal = sueldoBasico + sabadoUsuario * 6000; // el valor de sabados por la categoriaseleccionada
+        break;
+
+      case 3:
+
+        sueldoBasico = horasExtras * supervisorProduccion;
+        sueldoBasico = sueldoBasico * 2; // se multiplica por 2 ya que las horas extras se pagan un 50% mas que las horas normales.
+        sueldoTotal = sueldoBasico + sabadoUsuario * 8000; // el valor de sabados por la categoriaseleccionada
+        break;
+
+      case 4:
+        sueldoBasico = horasExtras * jefeDeSector;
+        sueldoBasico = sueldoBasico * 2; // se multiplica por 2 ya que las horas extras se pagan un 50% mas que las horas normales.
+        sueldoTotal = sueldoBasico + sabadoUsuario * 10000; // el valor de sabados por la categoriaseleccionada
+        break;
+    }
+
     alert(`Gracias ${nombreUsuario} por usar la calculadora online de sueldo. El valor tus horas extras del mes sin el salario basico es de ${sueldoTotal}`);
     console.log(sueldoTotal);
 
