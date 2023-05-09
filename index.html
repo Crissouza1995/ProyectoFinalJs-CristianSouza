@@ -10,30 +10,27 @@
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 
-
 <title>Document</title>
 
 </head>
-
 <body>
 
-  <nav class="navbar bg-primary">
-    <div class="container-fluid">
-      <h1>Calculadora de sueldos</h1>
-    </div>
-  </nav>
+  <header>
+    <nav class="navbar bg-primary">
+      <div class="container-fluid">
+        <h1>Calculadora de sueldos</h1>
+      </div>
+    </nav>
+  </header>
 
-  <div class="container-sm my-5">
 
+  <div class="container-sm my-5 col-6 w-50">
     <h2>Bienvenido a la calculadora de sueldo. Por favor siga los pasos a continuacion para poder calcular su salario
     </h2>
-
-
   </div>
 
-  <div class="container-sm my-5">
-
-    <select class="form-select" id="categoria" aria-label="Default select example">
+  <div class="container-sm my-4 d-flex justify-content-center align-items-center">
+    <select class="form-select col-6 w-50" id="categoria" aria-label="Default select example">
       <option selected>Seleccione su categoria</option>
       <option value="1">Tenico de Primera categoria</option>
       <option value="2">Tecnico de Segunda categoria</option>
@@ -42,46 +39,39 @@
     </select>
   </div>
 
-  <div class="container-sm my-5">
-    <div>
-      <input id="nombre-usuario" class="form-control" type="text" placeholder="Ingrese su nombre y apellido">
-
-      <div class="container my-4">
-        <button id="validar-nombre" class="btn btn-primary" type="button">Validar nombre y apellido</button>
-      </div>
-
-
+  <div class="container-sm my-4">
+    <div class="container-sm my- d-flex justify-content-center align-items-center">
+      <input id="nombre-usuario" class="form-control col-6 w-50" type="text" placeholder="Ingrese su nombre y apellido">
+    </div>
+    <div class="container-sm my-4 d-flex justify-content-center align-items-center">
+      <button id="validar-nombre" class="btn btn-primary" type="button">Validar nombre y apellido</button>
     </div>
   </div>
 
-  <div class="container-sm my-5">
-    <div>
-      <input id="horas-extras" class="form-control" type="text"
+  <div class="container-sm my-4">
+    <div class="container-sm my-4 d-flex justify-content-center align-items-center">
+      <input id="horas-extras" class="form-control col-6 w-50" type="text"
         placeholder="Ingrese la cantidad de horas extras que realizo en el mes">
     </div>
-    <div class="container my-4">
+    <div class="container-sm my-4 d-flex justify-content-center align-items-center">
       <button id="validar-horas-extras" class="btn btn-primary" type="button">Validar horas extras</button>
     </div>
   </div>
 
-  <div class="container-sm my-5">
-    <div>
-      <input id="sabados-trabajados" class="form-control" type="text"
+  <div class="container-sm my-4">
+    <div class="container-sm my-4 d-flex justify-content-center align-items-center">
+      <input id="sabados-trabajados" class="form-control col-6 w-50" type="text"
         placeholder="Ingrese cuantos sabados trabajo en el mes">
-
-      <div class="container my-4">
-        <button id="validar-sabado" class="btn btn-primary" type="button">Validar sabados trabajados</button>
-      </div>
 
     </div>
 
-  </div>
+    <div class="container-sm my-4 d-flex justify-content-center align-items-center">
+      <button id="validar-sabado" class="btn btn-primary" type="button">Validar sabados trabajados</button>
+    </div>
 
-  <div class="container my-4">
-    <button id="calcular-btn" class="btn btn-primary">Calcular sueldo</button>
-  </div>
-
-
+    <div class="container-sm my-5 d-flex justify-content-center align-items-center">
+      <button id="calcular-btn" class="btn btn-primary">Calcular sueldo</button>
+    </div>
 
 
 </body>
