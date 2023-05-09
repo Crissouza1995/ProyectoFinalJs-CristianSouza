@@ -12,9 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let sueldoTotal = 0;
 
 
-
   // validamos los datos ingresados
-
 
   const categoriaSelector = document.getElementById('categoria');
   categoriaSelector.addEventListener('change', () => {
@@ -98,5 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(sueldoTotal);
 
   });
+  
 });
 
