@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let jefeDeSector = 1900;
   let sueldoBasico = 0;
   let sueldoTotal = 0;
-
+  
 
   // validamos los datos ingresados
 
@@ -46,14 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //1)En caso de haber seleccionado Tecnico de primera categoria--
 
+  
+
   const calcularBtn = document.getElementById('calcular-btn');
   calcularBtn.addEventListener('click', () => {
 
-    if (horasExtras >= 40) {
+    if (horasExtras >= 0 && horasExtras<=40) {
 
       alert("no se pueden relizar mas de 40 horas extras en el mes");
       return;
-    }
+    } 
 
     if (sabadoUsuario >= 6) {
 
