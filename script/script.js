@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   console.log(nombreUsuario);
 
-
   const validarBtnHorasExtras = document.getElementById('validar-horas-extras');
   validarBtnHorasExtras.addEventListener('click', () => {
     horasExtras = document.getElementById('horas-extras').value;
