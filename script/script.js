@@ -78,7 +78,6 @@ function calcularSueldo() {
     });
 
 
-
     const sabadoTrabajado = document.querySelector('#sabados-trabajados');
 
 
@@ -170,25 +169,26 @@ function calcularSueldo() {
     
       console.log(arrayEmpleado);
 
-      
       const empleadoTabla = ()=>{
 
         const tablaBody = document.querySelector("#tabla-main");
     
         arrayEmpleado.forEach(empleado => {
-    
+
           const fila = document.createElement("tr");
           const columnaNombre = document.createElement("td");
-          columnaNombre.textContent = arrayEmpleado.nombre;
+          columnaNombre.textContent = empleado.nombre;
           const columnaCategoria = document.createElement("td");
-          columnaCategoria.textContent = arrayEmpleado.categoria;
+          columnaCategoria.textContent = empleado.categoria;
           const columnaSueldo = document.createElement("td");
-          columnaSueldo.textContent = arrayEmpleado.sueldo;
-    
+          columnaSueldo.textContent = empleado.salario;
+          const botonEliminar = document.createElement('button');
+          botonEliminar.textContent ='Eliminar';
     
           fila.appendChild(columnaNombre);
           fila.appendChild(columnaCategoria);
           fila.appendChild(columnaSueldo);
+          fila.appendChild(botonEliminar)
           tablaBody.appendChild(fila);
     
         });
@@ -198,9 +198,9 @@ function calcularSueldo() {
       empleadoTabla();
 
     });
-
-
   });
+
+
 
 }
 
