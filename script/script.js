@@ -1,7 +1,12 @@
 
+
+
+function calcularSueldo() {
+
   document.addEventListener('DOMContentLoaded', () => {
+
+
     var categoriaSeleccionada = "";
-    var nombreUsuario = "";
     let horasExtras = 0;
     let sabadoUsuario = 0;
     let tecnico1 = 700;
@@ -12,60 +17,111 @@
     let sueldoTotal = 0;
     
 
+
+    const usuariosRegistrados = []; // Array de usuarios registrados
+
     // validamos los datos ingresados
 
-    const categoriaSelector = document.getElementById('categoria');
+    const categoriaSelector = document.querySelector('#categoria');
     categoriaSelector.addEventListener('change', () => {
       categoriaSeleccionada = categoriaSelector.value;
-      console.log(categoriaSeleccionada);
+
+      usuariosRegistrados.push(categoriaSeleccionada);
+
     });
 
 
-    const validarBtnUser = document.getElementById('validar-nombre');
+
+
+    const validNombre = document.querySelector('#nombre-usuario');
+    const validarBtnUser = document.querySelector('#validar-nombre');
     validarBtnUser.addEventListener('click', () => {
-      nombreUsuario = document.getElementById('nombre-usuario').value;
-    });
-    console.log(nombreUsuario);
 
-    const validarBtnHorasExtras = document.getElementById('validar-horas-extras');
+      const nombreUsuario = document.querySelector('#nombre-usuario').value;
+
+
+      validNombre.classList.add("is-valid");
+
+      usuariosRegistrados.push(nombreUsuario);
+
+    });
+
+
+
+    const validarBtnHorasExtras = document.querySelector('#validar-horas-extras');
+
+
     validarBtnHorasExtras.addEventListener('click', () => {
-      horasExtras = document.getElementById('horas-extras').value;
+
+      const extrasUsuario = document.querySelector('#horas-extras');
+      const extraError = ('#extraError');
+
+      horasExtras = document.querySelector('#horas-extras').value;
+
+
+
+      if (horasExtras < 0 || horasExtras > 40) {
+
+        event.preventDefault();
+        extraError.textContent = "No se pueden realizar mas de 40hs extras en el mes";
+        extrasUsuario.classList.add("is-invalid")
+        return;
+      }
+
+      extraError.textContent = "";
+      extrasUsuario.classList.remove("is-invalid");
+      extrasUsuario.classList.add("is-valid");
+
+      usuariosRegistrados.push(horasExtras);
+
+
     });
 
-    console.log(horasExtras);
 
-    const validarSabadosUsuario = document.getElementById('validar-sabado');
+
+    const sabadoTrabajado = document.querySelector('#sabados-trabajados');
+
+
+    const validarSabadosUsuario = document.querySelector('#validar-sabado');
     validarSabadosUsuario.addEventListener('click', () => {
-      sabadoUsuario = document.getElementById('sabados-trabajados').value;
+
+      sabadoUsuario = document.querySelector('#sabados-trabajados').value;
+
+      const sabadoError = document.querySelector('#sabadoError');
+
+      if (sabadoUsuario > 4) {
+        event.preventDefault();
+        sabadoError.textContent = "Es imposible que 1 mes tenga mas de 4 sabadados.";
+        sabadoTrabajado.classList.add("is-invalid");
+        return;
+      }
+      sabadoError.textContent = "";
+      sabadoTrabajado.classList.remove("is-invalid");
+      sabadoTrabajado.classList.add("is-valid");
+
+      usuariosRegistrados.push(sabadoUsuario)
+
+
     });
 
-    console.log(sabadoUsuario);
-
+   
     // trabajamos de acuerdo los datos ingresados
 
     //1)En caso de haber seleccionado Tecnico de primera categoria--
 
-    
 
-    const calcularBtn = document.getElementById('calcular-btn');
+    const calcularBtn = document.querySelector('#calcular-btn');
     calcularBtn.addEventListener('click', () => {
-
-      if (horasExtras >= 0 && horasExtras<=40) {
-
-        alert("no se pueden relizar mas de 40 horas extras en el mes");
-        return;
-      } 
-
-      if (sabadoUsuario >= 6) {
-
-        alert("Es imposible que un mes tenga mas de 5 sabados");
-        return;
-      }
 
       categoriaSeleccionada = parseInt(categoriaSeleccionada);
 
+
+     
+      
       switch (categoriaSeleccionada) {
 
+
+      
         case 1:
           sueldoBasico = horasExtras * tecnico1;
           sueldoBasico = sueldoBasico * 2; // se multiplica por 2 ya que las horas extras se pagan un 50% mas que las horas normales.
@@ -93,27 +149,68 @@
           break;
       }
 
-      alert(`Gracias ${nombreUsuario} por usar la calculadora online de sueldo. El valor tus horas extras del mes sin el salario basico es de ${sueldoTotal}`);
+      usuariosRegistrados.push(sueldoTotal);
       console.log(sueldoTotal);
+      console.log(usuariosRegistrados)
 
-    });
 
-    const buscarBtn = document.getElementById('buscar-usuario');
-    buscarBtn.addEventListener('click', () => {
-      const searchTerm = document.getElementById('busqueda-nombre').value;
-      const filteredUsers = usuariosRegistrados.filter((usuario) => usuario.toLowerCase().includes(searchTerm.toLowerCase()));
-      console.log(filteredUsers);
-    });
+      const arrayEmpleado = usuariosRegistrados.map(e=>{
+
+        return{
+
+          categoria: usuariosRegistrados[0],
+          nombre: usuariosRegistrados[1],
+          horasExtras: usuariosRegistrados[2],
+          sabadoTrabajado: usuariosRegistrados[3],
+          salario: usuariosRegistrados[4],
+
+        }
+
+      });
     
+      console.log(arrayEmpleado);
+
+      
+      const empleadoTabla = ()=>{
+
+        const tablaBody = document.querySelector("#tabla-main");
+    
+        arrayEmpleado.forEach(empleado => {
+    
+          const fila = document.createElement("tr");
+          const columnaNombre = document.createElement("td");
+          columnaNombre.textContent = arrayEmpleado.nombre;
+          const columnaCategoria = document.createElement("td");
+          columnaCategoria.textContent = arrayEmpleado.categoria;
+          const columnaSueldo = document.createElement("td");
+          columnaSueldo.textContent = arrayEmpleado.sueldo;
+    
+    
+          fila.appendChild(columnaNombre);
+          fila.appendChild(columnaCategoria);
+          fila.appendChild(columnaSueldo);
+          tablaBody.appendChild(fila);
+    
+        });
+    
+      }
+
+      empleadoTabla();
+
+    });
+
+
   });
 
+}
 
 
- 
+calcularSueldo();
+
 
 
 /* Segunda Preentrega
-
+ 
 (1)-Estructura HTML del proyecto
 (2)-Variables Js necesarias
 (3)-Funciones escenciales del proceso a simular
@@ -131,3 +228,54 @@
 (4)- Efectuar una salida, que es el resultado de los datos procesados, la cual puede hacerse por alert() o console.log().
 
 */
+
+
+/*
+const buscarBtn = document.querySelector('#buscar-usuario');
+    buscarBtn.addEventListener('click', () => {
+      const searchTerm = document.getElementById('#busqueda-nombre').value;
+      const filteredUsers = usuariosRegistrados.filter((usuario) => usuario.toLowerCase().includes(searchTerm.toLowerCase()));
+      console.log(filteredUsers);
+    });
+
+    function registrarUsuarios(){
+
+  class Empleado {
+    constructor(nombre, apellido, legajo, categoria) {
+      this.nombre = nombre,
+        this.apellido = apellido,
+        this.legajo = legajo,
+        this.categoria = categoria
+      this.fecha = new Date()
+    }
+  }
+  
+  const empleado1 = new Empleado("Carlos", "Flores", 271, "Tecnico de primera categoria");
+  const empleado2 = new Empleado("Carlos", "Toloza", 25, "Tecnico de segunda categoria");
+  const empleado3 = new Empleado("Carlos", "Gonzales", 271, "Supervisor de produccion");
+  const empleado4 = new Empleado("Luis", "Pereyra", 271, "Tecnico de segunda categoria");
+  const empleado5 = new Empleado("Alexis", "Rivarola", 271, "Jefe de sector");
+  const empleadodinamico = new Empleado("", "", 0, "");
+
+  
+  
+  }
+  
+
+
+
+
+
+/*Storage y Json
+
+
+
+
+metodo => let user = sessionstorage.seItem(usuario, cristian);
+
+
+
+
+
+*/
+
