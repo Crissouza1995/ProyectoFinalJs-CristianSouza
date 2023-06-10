@@ -1,5 +1,6 @@
 const sabadoTrabajado = document.querySelector('#sabados-trabajados');
 const extrasUsuario = document.querySelector('#horas-extras');
+const arrayEmpleados = []
 
 function calcularSueldo() {
   let categoriaSeleccionada = "";
@@ -30,10 +31,7 @@ function calcularSueldo() {
   });
 
   const validarBtnHorasExtras = document.querySelector('#validar-horas-extras');
-
   validarBtnHorasExtras.addEventListener('click', () => {
-
-    
     const extraError = ('#extraError');
     horasExtras = document.querySelector('#horas-extras').value;
 
@@ -50,10 +48,8 @@ function calcularSueldo() {
     extrasUsuario.classList.remove("is-invalid");
     extrasUsuario.classList.add("is-valid");
 
-
     usuariosRegistrados[2] = horasExtras;
   });
-
 
   const validarSabadosUsuario = document.querySelector('#validar-sabado');
 
@@ -73,14 +69,11 @@ function calcularSueldo() {
       sabadoTrabajado.classList.remove("is-invalid");
       sabadoTrabajado.classList.add("is-valid");
     }
-
     usuariosRegistrados.push(sabadoUsuario)
-
     usuariosRegistrados[3] = sabadoUsuario;
   });
 
   const calcularBtn = document.querySelector('#calcular-btn');
-
   calcularBtn.addEventListener('click', () => {
     calcularEmpleado();
     limpiarCampos();
@@ -93,7 +86,7 @@ function calcularSueldo() {
     let sueldoBasico = 0;
     let sueldoTotal = 0;
 
-    debugger
+// instancia para evaluar la categoria seleccionada del empleado 
 
     switch (categoriaSeleccionada) {
       case 1:
@@ -127,9 +120,7 @@ function calcularSueldo() {
     }
 
     usuariosRegistrados[0] = categoriaSeleccionada;
-
     usuariosRegistrados[4] = sueldoTotal;
-
     const empleado = {
       categoria: usuariosRegistrados[0],
       nombre: usuariosRegistrados[1],
@@ -138,16 +129,25 @@ function calcularSueldo() {
       salario: usuariosRegistrados[4],
     };
 
+
+    //creo un nuevo array objeto para almacenar todos los usuarios en un array y etsos poder almacenarlos en el JSON 
+
+    arrayEmpleados.push(empleado);
+
     const tablaBody = document.querySelector("#tabla-main");
+    tablaBody.className ='table table-dark table-striped'
     const fila = document.createElement("tr");
+    fila.className = 'align-items-center my-2';
     const columnaNombre = document.createElement("td");
     columnaNombre.textContent = empleado.nombre;
     const columnaCategoria = document.createElement("td");
     columnaCategoria.textContent = empleado.categoria;
     const columnaSueldo = document.createElement("td");
     columnaSueldo.textContent = empleado.salario;
-    const botonEliminar = document.createElement('button');
+    const botonEliminar = document.createElement('mi-boton');
     botonEliminar.textContent = 'Eliminar';
+    botonEliminar.className = 'btn btn-danger btn-sm my-2'
+    botonEliminar.addEventListener('click', eliminarUsuario);
 
     fila.appendChild(columnaNombre);
     fila.appendChild(columnaCategoria);
@@ -156,8 +156,30 @@ function calcularSueldo() {
     tablaBody.appendChild(fila);
   }
 
+  debugger;
 
+  // ---Local Storage---
+const arrayEmpleadosString = JSON.stringify(arrayEmpleados);
 
+// Almaceno la cadena en el localStorage
+localStorage.setItem('empleados', arrayEmpleadosString);
+
+function eliminarUsuario(event) {
+  
+  const fila = event.target.parentNode;
+  
+  const indice = Array.from(fila.parentNode.children).indexOf(fila);
+
+  arrayEmpleados.splice(indice, 1);
+
+  fila.remove();
+
+  // Actualizo el localStorage con el nuevo contenido de arrayEmpleados
+  const arrayEmpleadosString = JSON.stringify(arrayEmpleados);
+  localStorage.setItem('empleados', arrayEmpleadosString);
+}
+
+// Limpio los campos a completar
   function limpiarCampos() {
 
     usuariosRegistrados.length = 0;
@@ -172,7 +194,7 @@ function calcularSueldo() {
     document.querySelector('#sabados-trabajados').value = "";
     document.querySelector('#extraError').textContent = "";
     document.querySelector('#sabadoError').textContent = "";
-    debugger
+   
     validNombre.classList.remove("is-valid");
     extrasUsuario.classList.remove("is-valid");
     sabadoTrabajado.classList.remove("is-valid");
@@ -180,34 +202,20 @@ function calcularSueldo() {
   }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
+
+  const arrayEmpleadosString = localStorage.getItem('empleados');
+
+  const arrayEmpleados = JSON.parse(arrayEmpleadosString);
+
+  if (Array.isArray(arrayEmpleados) && arrayEmpleados.length > 0) {
+    
+    console.log(arrayEmpleados);
+  }
 
   calcularSueldo();
 
 });
-
-
-
-/* Segunda Preentrega
- 
-(1)-Estructura HTML del proyecto
-(2)-Variables Js necesarias
-(3)-Funciones escenciales del proceso a simular
-(4)-Objeto del Js
-(5)-Arrays
-(6)- Metodo de busqueda y filtrado sobre el array
-(7)- La estructura hace referencia a el html y css, correspondientes al armado de la pagina general, pero que el JS que se evalua, aun no esta interactuando con ella.
-
-
----Objetivos especificos--
-
-(1)-Capturar entradas mediante prompt().
-(2)- Declarar variables y objetos necesarios para simular el proceso seleccionado.
-(3)-Crear funciones y/o metodos para realizar operaciones (suma, resta, concanetacion, division, porcentaje, etc).
-(4)- Efectuar una salida, que es el resultado de los datos procesados, la cual puede hacerse por alert() o console.log().
-
-*/
 
 
 /*
@@ -230,10 +238,6 @@ const buscarBtn = document.querySelector('#buscar-usuario');
     }
   }
   
- 
-  
-  
-
 
 
 
